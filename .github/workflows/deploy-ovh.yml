@@ -1,0 +1,35 @@
+# Déploiement automatique sur l'hébergement OVH via FTP à chaque push sur main.
+# Secrets à créer dans GitHub (Settings > Secrets and variables > Actions) :
+#   OVH_FTP_SERVER   ex. ftp.cluster0XX.hosting.ovh.net
+#   OVH_FTP_USERNAME identifiant FTP OVH
+#   OVH_FTP_PASSWORD mot de passe FTP OVH
+# Tant que ces secrets n'existent pas, le job est ignoré.
+name: Déploiement OVH
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      FTP_SERVER: ${{ secrets.OVH_FTP_SERVER }}
+    steps:
+      - uses: actions/checkout@v4
+        if: env.FTP_SERVER != ''
+      - name: Envoi FTP vers OVH
+        if: env.FTP_SERVER != ''
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.OVH_FTP_SERVER }}
+          username: ${{ secrets.OVH_FTP_USERNAME }}
+          password: ${{ secrets.OVH_FTP_PASSWORD }}
+          protocol: ftps
+          server-dir: ./www/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            README.md

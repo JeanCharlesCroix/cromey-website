@@ -1,0 +1,35 @@
+# Configuration Apache pour l'hébergement mutualisé OVH
+
+# Forcer HTTPS (activer le certificat SSL Let's Encrypt dans l'espace client OVH avant)
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Rediriger www.crome.fr vers crome.fr
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+# Page d'erreur personnalisée
+ErrorDocument 404 /404.html
+
+# Encodage et pas de listing de dossiers
+AddDefaultCharset UTF-8
+Options -Indexes
+
+# En-têtes de sécurité
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# Cache navigateur pour les ressources statiques
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/webp "access plus 1 month"
+</IfModule>
