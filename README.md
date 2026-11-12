@@ -1,6 +1,6 @@
 # crome.fr — site vitrine
 
-Site vitrine de **cromé**, entreprise d'accompagnement d'entreprise.
+Site vitrine de **cromey**, entreprise d'accompagnement d'entreprise.
 Site statique (HTML/CSS/JS, sans build), responsive, hébergé chez OVHcloud.
 
 ## Structure
