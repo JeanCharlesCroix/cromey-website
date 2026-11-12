@@ -1,7 +1,7 @@
-# crome.fr — site vitrine
+# cromey.fr — site vitrine
 
 Site vitrine de **cromey**, entreprise d'accompagnement d'entreprise.
-Site statique (HTML/CSS/JS, sans build), responsive, hébergé chez OVHcloud.
+Site statique (HTML/CSS/JS, sans build), responsive, hébergé sur GitHub Pages (domaine cromey.fr, fichier `CNAME`).
 
 ## Structure
 
